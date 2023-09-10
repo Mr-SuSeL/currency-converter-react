@@ -7,12 +7,12 @@ import { currencies } from "./currencies";
 function App() {
   const [result, setResult] = useState();
 
-  const calcResult = (currency, amount) => {
+  const calcResult = (currency, number) => {
     const rate = currencies.find(({ code }) => code === currency).rate;
 
     setResult({
-      fromAmount: +amount,
-      toAmount: amount / rate,
+      fromAmount: +number,
+      toAmount: number / rate,
       currency,
     });
   };
