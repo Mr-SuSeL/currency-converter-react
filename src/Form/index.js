@@ -5,7 +5,7 @@ import { Outcome } from "../Outcome";
 
 const Form = ({ calcResult, result }) => {
   const [number, setNumber] = useState("");
-  const [currency, setCurrency] = useState(currencies[0].code); //daj: ""
+  const [currency, setCurrency] = useState(currencies[0].code);
 
   const onFormSubmit = (event) => {
     event.preventDefault();
@@ -13,7 +13,6 @@ const Form = ({ calcResult, result }) => {
   };
 
   return (
-    // <>
     <form class="form" onSubmit={onFormSubmit}>
       <fieldset class="form__fieldset">
         <legend class="form__legend">Konwerter Walut</legend>
@@ -44,11 +43,6 @@ const Form = ({ calcResult, result }) => {
                   {currency.name}
                 </option>
               ))}
-
-              {/* <option>USD</option>
-              <option>EUR</option>
-              <option>CHF</option>
-              <option>GBP</option> */}
             </select>
           </label>
         </p>
@@ -56,13 +50,9 @@ const Form = ({ calcResult, result }) => {
         <p class="exchangeRate__date">
           Kursy pochodzą z Google z dn. 12.09.2023
         </p>
-        {/* Result: */}
-        {/* <Result result={result} /> */}
-
         <Outcome result={result} />
       </fieldset>
     </form>
-    // </>
   );
 };
 

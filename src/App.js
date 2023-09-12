@@ -21,7 +21,6 @@ function App() {
     <Container>
       <h1>Currency Converter in React</h1>
       <Form result={result} calcResult={calcResult} />
-      {/* <Form result={result} calcResult={calcResult} /> */}
     </Container>
   );
 }
