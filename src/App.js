@@ -19,7 +19,7 @@ function App() {
 
   return (
     <Container>
-      <h1>Currency Converter</h1>
+      <h1>Currency Converter in React</h1>
       <Form result={result} calcResult={calcResult} />
       {/* <Form result={result} calcResult={calcResult} /> */}
     </Container>
