@@ -1,4 +1,4 @@
-# CurrencyConverter
+# Currency Converter React
 
 App to convert chosen currency to PLN. App for studies
 
