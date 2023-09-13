@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./style.css";
 
 const Timer = () => {
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(new Date(Date));
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -24,6 +24,7 @@ const Timer = () => {
         second: "numeric",
         day: "numeric",
         month: "long",
+        timeZone: "UTC",
       })}
     </p>
   );
