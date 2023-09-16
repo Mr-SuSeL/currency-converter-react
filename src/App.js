@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
+import { StyledHeader1 } from "./styled";
 import Container from "./Container";
 import Form from "./Form";
 import { currencies } from "./currencies";
@@ -21,7 +22,7 @@ function App() {
   return (
     <Container>
       <Timer />
-      <h1>Currency Converter in React</h1>
+      <StyledHeader1>Currency Converter in React</StyledHeader1>
       <Form result={result} calcResult={calcResult} />
     </Container>
   );

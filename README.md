@@ -22,6 +22,7 @@ In this version, the currency exchange rates are hardcoded. But of course You ha
 
 - ECMAScript +06 features
 - React 18 library
+- Styled-Components
 - Source code based on function structure
 
 ## Getting Started with Create React App

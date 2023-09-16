@@ -1,4 +1,13 @@
-import "./style.css";
+import {
+  Fieldset,
+  StyledForm,
+  Exchange,
+  Legend,
+  StyledInput,
+  Label,
+  Select,
+  Button,
+} from "./styled";
 import { useState } from "react";
 import { currencies } from "../currencies";
 import { Outcome } from "../Outcome";
@@ -13,15 +22,14 @@ const Form = ({ calcResult, result }) => {
   };
 
   return (
-    <form class="form" onSubmit={onFormSubmit}>
-      <fieldset class="form__fieldset">
-        <legend class="form__legend">Konwerter Walut</legend>
+    <StyledForm onSubmit={onFormSubmit}>
+      <Fieldset>
+        <Legend>Konwerter Walut</Legend>
         <p>
           <label>
             <span>Kwota w PLN:</span>
 
-            <input
-              class="form__fieldLabel"
+            <StyledInput
               type="number"
               placeholder="Wpisz kwotę w PLN"
               required
@@ -32,9 +40,8 @@ const Form = ({ calcResult, result }) => {
         </p>
         <p>
           <label>
-            <span class="form__labelText">Waluta do wymiany:</span>
-            <select
-              class="form__field"
+            <Label>Waluta do wymiany:</Label>
+            <Select
               value={currency}
               onChange={(event) => setCurrency(event.target.value)}
             >
@@ -43,16 +50,14 @@ const Form = ({ calcResult, result }) => {
                   {currency.name}
                 </option>
               ))}
-            </select>
+            </Select>
           </label>
         </p>
-        <button class="form__button">Oblicz</button>
-        <p class="exchangeRate__date">
-          Kursy pochodzą z Google z dn. 12.09.2023
-        </p>
+        <Button>Oblicz</Button>
+        <Exchange>Kursy pochodzą z Google z dn. 12.09.2023</Exchange>
         <Outcome result={result} />
-      </fieldset>
-    </form>
+      </Fieldset>
+    </StyledForm>
   );
 };
 

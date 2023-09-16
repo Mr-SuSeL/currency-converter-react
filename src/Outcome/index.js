@@ -1,5 +1,3 @@
-import "./style.css";
-
 export const Outcome = ({ result }) => (
   <p>
     {result !== undefined && (
