@@ -24,6 +24,8 @@ In this version, the currency exchange rates are hardcoded. But of course You ha
 - React 18 library
 - Styled-Components
 - Source code based on function structure
+- REST API interaction by axios with cached data
+- asynchronous async/await JS
 
 ## Getting Started with Create React App
 
