@@ -71,12 +71,13 @@ export const Button = styled.button`
   border-radius: 5px;
   border: 2px solid rgb(83, 105, 82);
   background-color: rgba(128, 255, 0, 0.4);
-  color: rgb(83, 105, 82);
+  color: rgba(32, 33, 32, 1);
+  font-size: 16px;
   font-weight: bold;
 
   &:hover {
     background-color: rgba(128, 255, 0, 0.85);
-    color: rgb(4, 54, 15);
+    color: rgba(0, 0, 0, 1);
   }
 
   &:active {
