@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { setupCache } from 'axios-cache-interceptor';
 import axios from 'axios';
 
-const apiLink = "https://api.exchangerate-api.com/v4/latest/PLN";
+const API_KEY = "cur_live_Y1a6Rk39CYILaX2ixEHYlW5zRmNVCovqNbJZryIi";
+const apiLink = `https://api.currencyapi.com/v3/latest?apikey=${API_KEY}&base_currency=PLN`;
 
 // Konfigurujemy instancję axios z cache'em raz na zewnątrz hooka, by nie tworzyć przy każdym renderze
 const axiosInstance = setupCache(axios);
@@ -16,7 +17,7 @@ export const useExchangeRates = () => {
     });
 
     useEffect(() => {
-        async function fetchWithCache() {
+        const fetchWithCache = async () => {
             try {
                 // Pobieramy dane z API używając cache
                 const response = await axiosInstance.get(apiLink);

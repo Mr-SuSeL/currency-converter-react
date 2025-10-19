@@ -8,13 +8,51 @@ import {
   Select,
   Button,
 } from "./styled";
-import { useState } from "react";
-import { currencies } from "../currencies";
+import { useState, useEffect } from "react";
 import { Outcome } from "../Outcome";
 
-const Form = ({ calcResult, result }) => {
+import { useExchangeRates } from "./useExchangeRates";
+
+const Form = () => {
   const [number, setNumber] = useState("");
-  const [currency, setCurrency] = useState(currencies[0].code);
+  const { state, data, error } = useExchangeRates();
+
+  const [currency, setCurrency] = useState("");
+  const [result, setResult] = useState(undefined);
+
+  // Ustawiamy domyślną walutę po załadowaniu danych, ignorując "PLN"
+  useEffect(() => {
+    if (
+      state === "loaded" &&
+      data &&
+      data.data &&
+      Object.keys(data.data).length > 0
+    ) {
+      const codes = Object.keys(data.data).filter((c) => c !== "PLN");
+      setCurrency(codes[0] || "PLN");
+    }
+  }, [state, data]);
+
+  // Funkcja obliczająca wynik konwersji
+  const calcResult = (currency, number) => {
+    if (state !== "loaded" || !data || !data.data) {
+      alert("Kursy nie są jeszcze załadowane");
+      return;
+    }
+
+    const rateObj = data.data[currency];
+    if (!rateObj) {
+      alert("Nie znaleziono kursu dla wybranej waluty");
+      return;
+    }
+    const rate = rateObj.value;
+
+    setResult({
+      fromAmount: +number,
+      toAmount: number / rate,
+      currency,
+    });
+  };
 
   const onFormSubmit = (event) => {
     event.preventDefault();
@@ -44,17 +82,36 @@ const Form = ({ calcResult, result }) => {
             <Select
               value={currency}
               onChange={(event) => setCurrency(event.target.value)}
+              disabled={state !== "loaded"}
             >
-              {currencies.map((currency) => (
-                <option key={currency.code} value={currency.code}>
-                  {currency.name}
-                </option>
-              ))}
+              {state === "loading" && <option>Ładowanie walut...</option>}
+              {state === "error" && <option>Wystąpił błąd: {error?.message}</option>}
+              {state === "loaded" &&
+                (!data || !data.data || Object.keys(data.data).length === 0) && (
+                  <option>Brak dostępnych walut</option>
+                )}
+              {state === "loaded" &&
+                data &&
+                data.data &&
+                Object.keys(data.data).length > 0 &&
+                Object.keys(data.data).map((code) => (
+                  <option key={code} value={code}>
+                    {code}
+                  </option>
+                ))}
             </Select>
           </label>
         </p>
-        <Button>Oblicz</Button>
-        <Exchange>Kursy pochodzą z Google z dn. 12.09.2023</Exchange>
+        <Button disabled={state !== "loaded"}>Oblicz</Button>
+        <Exchange>
+          {state === "loaded"
+            ? `Kursy pobrane aktualne na dzień ${new Date(
+                data.meta.last_updated_at
+              ).toLocaleDateString()}`
+            : state === "error"
+            ? "Błąd ładowania kursów"
+            : "Ładowanie kursów..."}
+        </Exchange>
         <Outcome result={result} />
       </Fieldset>
     </StyledForm>
