@@ -49,7 +49,7 @@ const Form = () => {
 
     setResult({
       fromAmount: +number,
-      toAmount: number / rate,
+      toAmount: number * rate,
       currency,
     });
   };
