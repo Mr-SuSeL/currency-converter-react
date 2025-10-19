@@ -14,8 +14,23 @@ export const StyledForm = styled.form`
 
 export const Exchange = styled.p`
   font-size: 9px;
-  color: rgb(83, 105, 82);
   text-align: center;
+`;
+
+// Nowe komponenty komunikatów:
+export const LoadingMessage = styled(Exchange)`
+  color: #3182ce; /* niebieski */
+`;
+
+export const ErrorMessage = styled(Exchange)`
+  color: #c53030; /* czerwony */
+  font-weight: bold;
+`;
+
+export const SuccessMessage = styled(Exchange)`
+  color: #2f855a; /* zielony */
+  font-weight: bold;
+  font-size: 12px;
 `;
 
 export const Legend = styled.legend`

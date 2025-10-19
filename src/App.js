@@ -9,7 +9,7 @@ function App() {
   return (
     <Container>
       <Timer />
-      <StyledHeader1>Currency Converter in React</StyledHeader1>
+      <StyledHeader1>Kantor walut w React</StyledHeader1>
       <Form />
     </Container>
   );

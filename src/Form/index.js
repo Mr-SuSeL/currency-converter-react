@@ -7,20 +7,20 @@ import {
   Label,
   Select,
   Button,
+  LoadingMessage,
+  ErrorMessage,
+  SuccessMessage,
 } from "./styled";
 import { useState, useEffect } from "react";
 import { Outcome } from "../Outcome";
-
 import { useExchangeRates } from "./useExchangeRates";
 
 const Form = () => {
   const [number, setNumber] = useState("");
   const { state, data, error } = useExchangeRates();
-
   const [currency, setCurrency] = useState("");
   const [result, setResult] = useState(undefined);
 
-  // Ustawiamy domyślną walutę po załadowaniu danych, ignorując "PLN"
   useEffect(() => {
     if (
       state === "loaded" &&
@@ -33,7 +33,6 @@ const Form = () => {
     }
   }, [state, data]);
 
-  // Funkcja obliczająca wynik konwersji
   const calcResult = (currency, number) => {
     if (state !== "loaded" || !data || !data.data) {
       alert("Kursy nie są jeszcze załadowane");
@@ -66,7 +65,6 @@ const Form = () => {
         <p>
           <label>
             <span>Kwota w PLN:</span>
-
             <StyledInput
               type="number"
               placeholder="Wpisz kwotę w PLN"
@@ -103,15 +101,17 @@ const Form = () => {
           </label>
         </p>
         <Button disabled={state !== "loaded"}>Oblicz</Button>
-        <Exchange>
-          {state === "loaded"
-            ? `Kursy pobrane aktualne na dzień ${new Date(
-                data.meta.last_updated_at
-              ).toLocaleDateString()}`
-            : state === "error"
-            ? "Błąd ładowania kursów"
-            : "Ładowanie kursów..."}
-        </Exchange>
+
+        {/* Komunikaty ze stylami */}
+        {state === "loading" && <LoadingMessage>Ładowanie kursów...</LoadingMessage>}
+        {state === "error" && <ErrorMessage>Błąd ładowania: {error?.message}</ErrorMessage>}
+        {state === "loaded" && data && (
+          <SuccessMessage>
+            Kursy pobrane aktualne na dzień{" "}
+            {new Date(data.meta.last_updated_at).toLocaleDateString()}
+          </SuccessMessage>
+        )}
+
         <Outcome result={result} />
       </Fieldset>
     </StyledForm>
